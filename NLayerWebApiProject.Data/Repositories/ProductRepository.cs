@@ -10,7 +10,7 @@ namespace NLayerWebApiProject.Data.Repositories
     {
         private AppDbContext AppDbContext => Context as AppDbContext;
 
-        public ProductRepository(DbContext context) : base(context)
+        public ProductRepository(AppDbContext context) : base(context)
         {
             
         }

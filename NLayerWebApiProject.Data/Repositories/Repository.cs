@@ -14,7 +14,7 @@ namespace NLayerWebApiProject.Data.Repositories
         protected readonly DbContext Context;
         private readonly DbSet<TEntity> _dbSet;
 
-        protected Repository(DbContext context)
+        protected Repository(AppDbContext context)
         {
             Context = context;
             _dbSet = context.Set<TEntity>();
@@ -41,14 +41,16 @@ namespace NLayerWebApiProject.Data.Repositories
             return entities;
         }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-            await _dbSet.AddAsync(entity);
+            var addedEntity = await _dbSet.AddAsync(entity);
+            return addedEntity.Entity;
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            return entities;
         }
 
         public void Remove(TEntity entity)
