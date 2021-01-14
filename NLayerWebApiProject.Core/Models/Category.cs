@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using NLayerWebApiProject.Core.Abstract;
 
 namespace NLayerWebApiProject.Core.Models
 {
-    public class Category
+    public class Category: IEntity
     {
         public Category()
         {

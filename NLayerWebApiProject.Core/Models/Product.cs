@@ -1,6 +1,8 @@
-﻿namespace NLayerWebApiProject.Core.Models
+﻿using NLayerWebApiProject.Core.Abstract;
+
+namespace NLayerWebApiProject.Core.Models
 {
-    public class Product
+    public class Product: IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
