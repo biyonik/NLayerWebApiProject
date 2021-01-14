@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NLayerWebApiProject.Core\NLayerWebApiProject.Core.csproj" />
+    <ProjectReference Include="..\NLayerWebApiProject.Data\NLayerWebApiProject.Data.csproj" />
+  </ItemGroup>
+
 </Project>
