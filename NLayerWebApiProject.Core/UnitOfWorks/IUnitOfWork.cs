@@ -4,7 +4,7 @@ using NLayerWebApiProject.Core.Repository;
 
 namespace NLayerWebApiProject.Core.UnitOfWorks
 {
-    public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork
     {
         IProductRepository Products { get; }
         ICategoryRepository Categories { get;  }

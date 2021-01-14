@@ -8,7 +8,8 @@ namespace NLayerWebApiProject.Data.Repositories
     public class CategoryRepository: Repository<Category>, ICategoryRepository
     {
         private AppDbContext AppDbContext => Context as AppDbContext;
-        protected CategoryRepository(DbContext context) : base(context)
+
+        public CategoryRepository(DbContext context) : base(context)
         {
         }
 
