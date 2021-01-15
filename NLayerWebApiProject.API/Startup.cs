@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLayerWebApiProject.API.DTOs;
+using NLayerWebApiProject.API.Extensions;
+using NLayerWebApiProject.API.Filters;
 using NLayerWebApiProject.Core.Repository;
 using NLayerWebApiProject.Core.Services;
 using NLayerWebApiProject.Core.UnitOfWorks;
@@ -43,6 +49,8 @@ namespace NLayerWebApiProject.API
             services.AddScoped(typeof(IService<>), typeof(Service<>));
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped(typeof(NotFoundFilter<>));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
@@ -50,7 +58,11 @@ namespace NLayerWebApiProject.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NLayerWebApiProject.API", Version = "v1" });
             });
-            
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +74,8 @@ namespace NLayerWebApiProject.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NLayerWebApiProject.API v1"));
             }
+
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
 

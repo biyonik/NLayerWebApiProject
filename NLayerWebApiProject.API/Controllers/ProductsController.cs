@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NLayerWebApiProject.API.DTOs;
+using NLayerWebApiProject.API.Filters;
 using NLayerWebApiProject.Core.Models;
 using NLayerWebApiProject.Core.Services;
-using NLayerWebApiProject.Core.UnitOfWorks;
 
 namespace NLayerWebApiProject.API.Controllers
 {
@@ -23,6 +23,7 @@ namespace NLayerWebApiProject.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetByIdAsync(id);
@@ -30,6 +31,7 @@ namespace NLayerWebApiProject.API.Controllers
         }
 
         [HttpGet("{id}/category")]
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         public async Task<IActionResult> GetWithCategoryById(int id)
         {
             var product = await _productService.GetWithCategoryByIdAsync(id);
@@ -44,6 +46,7 @@ namespace NLayerWebApiProject.API.Controllers
         }
         
         [HttpPost]
+        [ValidationFilter]
         public async Task<IActionResult> Save(ProductDTO entity)
         {
             var result = await _productService.AddAsync(_mapper.Map<Product>(entity));
@@ -58,6 +61,7 @@ namespace NLayerWebApiProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         public IActionResult Remove(int id)
         {
             var entity = _productService.GetByIdAsync(id).Result;

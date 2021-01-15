@@ -11,6 +11,7 @@ namespace NLayerWebApiProject.Data.UnitOfWorks
         private readonly AppDbContext _appDbContext;
         private IProductRepository _productRepository;
         private ICategoryRepository _categoryRepository;
+        private IPersonRepository _personRepository;
         private bool _disposed;
         
         public UnitOfWork(AppDbContext appDbContext)
@@ -39,7 +40,8 @@ namespace NLayerWebApiProject.Data.UnitOfWorks
 
         public IProductRepository Products => _productRepository ?? new ProductRepository(_appDbContext);
         public ICategoryRepository Categories => _categoryRepository ?? new CategoryRepository(_appDbContext);
-        
+        public IPersonRepository Persons => _personRepository ?? new PersonRepository(_appDbContext);
+
         public async Task CommitAsync()
         {
             await _appDbContext.SaveChangesAsync();
