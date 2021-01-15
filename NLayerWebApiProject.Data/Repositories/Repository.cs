@@ -11,13 +11,13 @@ namespace NLayerWebApiProject.Data.Repositories
 {
     public class Repository<TEntity>: IGenericRepository<TEntity> where TEntity : class, IEntity, new()
     {
-        protected readonly DbContext Context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly AppDbContext Context;
+        public readonly DbSet<TEntity> _dbSet;
 
-        protected Repository(AppDbContext context)
+        public Repository(AppDbContext context)
         {
             Context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbSet = Context.Set<TEntity>();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)

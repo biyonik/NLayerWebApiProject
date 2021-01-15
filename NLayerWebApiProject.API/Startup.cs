@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +19,7 @@ using NLayerWebApiProject.Core.UnitOfWorks;
 using NLayerWebApiProject.Data;
 using NLayerWebApiProject.Data.Repositories;
 using NLayerWebApiProject.Data.UnitOfWorks;
+using NLayerWebApiProject.Service.Services;
 
 namespace NLayerWebApiProject.API
 {
@@ -33,15 +35,22 @@ namespace NLayerWebApiProject.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+            services.AddDbContext<AppDbContext>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
             
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NLayerWebApiProject.API", Version = "v1" });
             });
-            services.AddDbContext<AppDbContext>();
             
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
