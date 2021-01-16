@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Newtonsoft.Json;
 using NLayerWebApiProject.WebUI.DTOs;
 
@@ -36,6 +34,29 @@ namespace NLayerWebApiProject.WebUI.ApiService
                 ? JsonConvert.DeserializeObject<ProductDTO>(await response.Content.ReadAsStringAsync()) 
                 : null;
             return productDto;
+        }
+
+        public async Task<ProductDTO> GetByIdAsync(int id)
+        {
+            ProductDTO productDto = new ProductDTO();
+            var response = await _client.GetAsync($"Products/{id}");
+            productDto = response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<ProductDTO>(await response.Content.ReadAsStringAsync())
+                : null;
+            return productDto;
+        }
+
+        public async Task<bool> Update(ProductDTO productDto)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(productDto), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync("Products", content);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> Remove(int id)
+        {
+            var response = await _client.DeleteAsync($"Products/{id}");
+            return response.IsSuccessStatusCode;
         }
     }
 }
