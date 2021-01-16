@@ -4,4 +4,10 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NLayerWebApiProject.Core\NLayerWebApiProject.Core.csproj" />
+      <ProjectReference Include="..\NLayerWebApiProject.Data\NLayerWebApiProject.Data.csproj" />
+      <ProjectReference Include="..\NLayerWebApiProject.Service\NLayerWebApiProject.Service.csproj" />
+    </ItemGroup>
+
 </Project>

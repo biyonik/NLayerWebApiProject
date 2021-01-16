@@ -8,6 +8,13 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLayerWebApiProject.Core.Repository;
+using NLayerWebApiProject.Core.Services;
+using NLayerWebApiProject.Core.UnitOfWorks;
+using NLayerWebApiProject.Data;
+using NLayerWebApiProject.Data.Repositories;
+using NLayerWebApiProject.Data.UnitOfWorks;
+using NLayerWebApiProject.Service.Services;
 
 namespace NLayerWebApiProject.WebUI
 {
@@ -23,6 +30,15 @@ namespace NLayerWebApiProject.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
         }
 
