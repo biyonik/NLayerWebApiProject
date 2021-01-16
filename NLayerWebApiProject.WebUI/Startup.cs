@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,7 @@ using NLayerWebApiProject.Data;
 using NLayerWebApiProject.Data.Repositories;
 using NLayerWebApiProject.Data.UnitOfWorks;
 using NLayerWebApiProject.Service.Services;
+using NLayerWebApiProject.WebUI.ApiService;
 using NLayerWebApiProject.WebUI.Filters;
 
 namespace NLayerWebApiProject.WebUI
@@ -32,6 +34,10 @@ namespace NLayerWebApiProject.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<ProductApiService>(options =>
+            {
+                options.BaseAddress = new Uri(Configuration["baseUrl"]);
+            });
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
