@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerWebApiProject.Data", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerWebApiProject.Service", "NLayerWebApiProject.Service\NLayerWebApiProject.Service.csproj", "{6A06D7B7-FCDE-4A94-8A2C-BAD4BBDBF170}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerWebApiProject.WebUI", "NLayerWebApiProject.WebUI\NLayerWebApiProject.WebUI.csproj", "{3F98DB2D-AEC9-4D29-B27A-0ADE0E43ACEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6A06D7B7-FCDE-4A94-8A2C-BAD4BBDBF170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A06D7B7-FCDE-4A94-8A2C-BAD4BBDBF170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A06D7B7-FCDE-4A94-8A2C-BAD4BBDBF170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F98DB2D-AEC9-4D29-B27A-0ADE0E43ACEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F98DB2D-AEC9-4D29-B27A-0ADE0E43ACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F98DB2D-AEC9-4D29-B27A-0ADE0E43ACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F98DB2D-AEC9-4D29-B27A-0ADE0E43ACEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
