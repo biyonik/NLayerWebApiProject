@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using NLayerWebApiProject.Data;
 using NLayerWebApiProject.Data.Repositories;
 using NLayerWebApiProject.Data.UnitOfWorks;
 using NLayerWebApiProject.Service.Services;
+using NLayerWebApiProject.WebUI.Filters;
 
 namespace NLayerWebApiProject.WebUI
 {
@@ -30,6 +32,7 @@ namespace NLayerWebApiProject.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -39,6 +42,7 @@ namespace NLayerWebApiProject.WebUI
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(NotFoundFilter<>));
             services.AddControllersWithViews();
         }
 

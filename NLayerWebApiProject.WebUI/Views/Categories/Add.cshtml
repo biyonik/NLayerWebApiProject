@@ -1,0 +1,28 @@
+﻿@model NLayerWebApiProject.WebUI.DTOs.CategoryDTO
+
+@{
+    ViewBag.Title = "Categories Page";
+}
+
+<div class="col-md-12">
+    <div class="text-center">
+        <h1 class="display-4">Yeni Kategori Ekle - Kategoriler</h1>
+    </div>
+    <a asp-controller="Categories" asp-action="Index" class="btn btn-sm btn-outline-primary my-2">Tüm Kategoriler</a>
+    <form method="post" asp-action="Add">
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Name" class="col-form-label"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="Name" class="form-control">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-9 offset-3">
+                <button type="submit" class="btn btn-sm btn-outline-success">Kaydet</button>
+            </div>
+        </div>
+    </form>
+</div>
